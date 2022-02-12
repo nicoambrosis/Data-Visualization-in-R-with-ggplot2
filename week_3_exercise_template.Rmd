@@ -1,0 +1,156 @@
+---
+title: "Week 3 Peer Review"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+######DO NOT MODIFY. This will load required packages and data.
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+cces <- drop_na(read_csv(url("https://www.dropbox.com/s/ahmt12y39unicd2/cces_sample_coursera.csv?raw=1")))
+
+cel <- drop_na(read_csv(url("https://www.dropbox.com/s/4ebgnkdhhxo5rac/cel_volden_wiseman%20_coursera.csv?raw=1")))
+
+```
+
+Following the directions on the Coursera assignment page, you will make four original visualizations. Note that the data for the CCES and CEL data are imported in code in the R Markdown file.
+
+### Put your name here: Nicolas Ambrosis
+
+## Exercise 1
+
+Explain what you are visualizing here: SCATTER PLOT. Change in ideology (the higher, the more conservative) in the last 50 years showing different colors for men and women
+
+Put your figure here:
+
+```{r exercise1,echo=FALSE}
+
+####PUT YOUR CODE HERE
+
+cel$female <- recode(cel$female, `1` = "Female", `0` = "Male")
+
+ggplot(data = cel) +
+  aes(x = year, y  = dwnom1, color = factor(female)) +
+  scale_color_manual(values = c("#d94a98", "#1916ab")) +
+  geom_jitter() +
+  labs(
+    x = "Year",
+    y = "Ideology",
+    title = "Congress Ideology over the las 50 years",
+    color = "Gender"
+  )
+
+
+```
+
+## Exercise 2
+
+Explain what you are visualizing here: Blox Plot: In this graphic you can see the mean Ideology grouped by states for 16 States.
+
+Put your figure here:
+
+```{r exercise2,echo=FALSE}
+
+####PUT YOUR CODE HERE
+library(ggthemes)  
+
+cel %>%
+  filter(st_name %in% c("AL", "GA", "MA", "MO", "MS", "IN", "LA", "KY",
+                         "MI", "VA", "MD", "OK", "NH", "ME", "AZ", "CT")) %>% 
+  ggplot() +
+  aes(x = st_name, y = dwnom1) +
+  geom_boxplot() +
+  theme_economist() +
+  labs(
+    x = "States",
+    y = "Ideology",
+    title = "Idology by States"
+  )
+
+```
+
+## Exercise 3
+
+Explain what you are visualizing here: Line Plot: this plot represente the changing in apples price over the year (fake data)
+
+Put your figure here:
+
+```{r exercise3,echo=FALSE}
+
+####PUT YOUR CODE HERE
+library(ggtext)
+library(ggthemes)
+#create a sequence of years
+
+
+years <- seq(from=1980,to=2020,by=1)
+
+#fake data for vegetables price
+
+#apple_price <- rnorm(n = 41,mean=15,sd=5)
+apple_price <- c(6.327226, 12.002752, 12.593287,  8.412929, 18.718086, 19.146518,
+        21.550578, 13.878460, 18.518919,  6.987423, 12.571924, 16.479301,
+        9.456109, 16.155841, 11.233189, 21.414669, 10.051653, 17.237984,
+        16.853089, 12.779497, 15.051130, 15.676054, 20.425105, 16.775450,
+        11.031084, 21.229392, 25.022452,  7.103986, 28.394870, 15.999448,
+        8.037262, 19.966910, 19.253743, 12.372442, 16.380708, 17.205219,
+        19.864272, 10.112350, 22.141554, 13.033585, 17.392816)
+
+
+
+fig_data <- tibble("year"=years,
+                   "apple"= apple_price)
+                   
+ggplot(fig_data) +
+  aes(x=years,y = apple) +
+  geom_line() +
+  labs(
+    x = "Years",
+    y = "Price",
+    title = "Changing of apples price over the years"
+  ) +
+  theme_fivethirtyeight() +
+  annotate("text", x = 2014, y = 28,
+           label = "Highest historical price", color = "red", )
+
+
+```
+
+## Exercise 4
+
+Explain what you are visualizing here: Box Plot showing the number of people that is investor or not and grouped by politic Ideology.
+
+Put your figure here:
+
+```{r exercise4,echo=FALSE}
+
+####PUT YOUR CODE HERE
+
+cces$pid7 <- recode(cces$pid7, `1` = 'Strong Dem',
+                    `2` = 'Not Strong Dem.',
+                    `3`= "Lean Dem.",
+                    `4` = "Independent",
+                    `5` =  "Lean Rep.",
+                    `6`= "Not Strong Rep.",
+                    `7`= "Strong Rep.")
+
+cces$investor  <-  recode(cces$investor, `1` = "YES", `2` = "NO")
+
+ggplot(data = cces) +
+  aes(x = factor(investor), fill = factor(investor)) +
+  geom_bar() +
+  labs(
+    x = "Investor",
+    y = "Count",
+    title = "Number of investors",
+    fill = NULL
+  ) +
+  scale_fill_manual(values = c("black", "red")) +
+  facet_grid(~pid7)
+
+
+
+```
