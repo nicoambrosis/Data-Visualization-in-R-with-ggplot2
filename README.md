@@ -1,5 +1,5 @@
 # Data-Visualization-in-R-with-ggplot2
-This project contains material made as part of the John Hopkins University course "Data Visualization in R with ggplot2" delivered through the Coursera platform
+![Image text](https://ggplot2.tidyverse.org/logo.png) This project contains material made as part of the John Hopkins University course "Data Visualization in R with ggplot2" delivered through the Coursera platform
 
 In this page you will find the files that have been made as part of this project.
 
