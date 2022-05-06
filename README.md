@@ -27,4 +27,4 @@ In this page you will find the files that have been made as part of this project
 
 
 ## Certificate
-![Image text](https://github.com/nicoambrosis/Data-Visualization-in-R-with-ggplot2/blob/main/Certificado-Data%20Visualization%20in%20R%20with%20ggplot2_page-0001.jpg) 
+![Image text](https://github.com/nicoambrosis/Data-Visualization-in-R-with-ggplot2/blob/main/Certificado-Data%20Visualization%20in%20R%20with%20ggplot2.jpg) 
